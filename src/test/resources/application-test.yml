@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: test
+    password: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/test
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/test
+        registration:
+          keycloak:
+            client-id: test-client
+            client-secret: test-secret
+
+telegram:
+  bot:
+    username: test_bot
+    token: test_token
+
+# Эти значения переопределяются в тестах через @DynamicPropertySource
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: test
+  client-id: test-client
+  client-secret: test-secret
+
+logging:
+  level:
+    org.testcontainers: INFO
+    com.worch: DEBUG
+    org.keycloak: INFO
+    org.springframework.security: DEBUG
+
