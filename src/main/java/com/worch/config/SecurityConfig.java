@@ -1,7 +1,7 @@
 package com.worch.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.worch.dto.ErrorResponse;
+import com.worch.model.dto.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +48,9 @@ public class SecurityConfig {
         http
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/profile").authenticated()
+                        .requestMatchers("/api/v1/profile",
+                                         "/api/v1/choices")
+                        .authenticated()
                         .anyRequest().permitAll())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
